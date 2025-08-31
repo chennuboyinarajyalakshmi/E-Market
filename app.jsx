@@ -1,15 +1,20 @@
+const { useEffect, useState } = React;
 
-const {useEffect, useState} = React;
-
-function PromoBar(){
-  return (<div className="promo-bar">Populate this marketing banner to advertise a special promotion such as: Save 20% this weekend!</div>);
+function PromoBar() {
+  return (
+    <div className="promo-bar">
+      Populate this marketing banner to advertise a special promotion such as: Save 20% this weekend!
+    </div>
+  );
 }
 
-function SmallTop(){
+function SmallTop() {
   return (
     <div className="small-top">
       <div className="left">
-        <span>Off every single day on Weekends - New Coupon code: <b>Happy2018</b></span>
+        <span>
+          Off every single day on Weekends - New Coupon code: <b>Happy2018</b>
+        </span>
       </div>
       <div className="right">
         <span>Gift Certificates</span><span className="sep">|</span>
@@ -20,12 +25,14 @@ function SmallTop(){
   );
 }
 
-function Header(){
+function Header() {
   return (
     <div className="header">
-      <div className="brand"><span className="dot"></span> market <small>all in one store</small></div>
+      <div className="brand">
+        <span className="dot"></span> market <small>all in one store</small>
+      </div>
       <div className="search">
-        <input placeholder="Search the store"/>
+        <input placeholder="Search the store" />
         <button>Search</button>
       </div>
       <div className="header-cta">
@@ -33,15 +40,30 @@ function Header(){
         <span>🛒 MY CART - $0.00</span>
       </div>
     </div>
-  )
+  );
 }
 
-function Nav(){
-  const links = ["ALL CATEGORIES","HOME","LAYOUT","FEATURES","DAILY DEALS","PAGES","BLOG","SHOP"];
-  return <div className="nav">{links.map((t,i)=><a key={i} href="#">{t}</a>)}</div>
+function Nav() {
+  const links = ["ALL CATEGORIES", "HOME", "LAYOUT", "FEATURES", "DAILY DEALS", "PAGES", "BLOG", "SHOP"];
+  return <div className="nav">{links.map((t, i) => <a key={i} href="#">{t}</a>)}</div>;
 }
 
-function Hero(){
+// --- HERO SECTION WITH CAROUSEL ---
+function Hero() {
+  const images = [
+    "images/hero-couple.jpg",
+    "images/wooden-table.jpg",
+    "images/winter-jacket.jpg"
+  ];
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent(prev => (prev + 1) % images.length);
+    }, 3000); // rotate every 3 seconds
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <div className="hero">
       <div className="hero-main">
@@ -50,32 +72,48 @@ function Hero(){
           <p>Summer whites and bright tropical prints capture a breezy, island vibe.</p>
           <button className="btn">Shop Now</button>
         </div>
-      </div>
-      <div className="hero-side">
-        <div className="hero-card"></div>
-        <div className="hero-card"></div>
+        <div className="hero-slider">
+          {images.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt="Hero Slide"
+              className={i === current ? "active" : ""}
+              style={{
+                position: i === current ? "relative" : "absolute",
+                opacity: i === current ? 1 : 0,
+                transition: "opacity 1s ease-in-out",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover"
+              }}
+            />
+          ))}
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-function Services(){
-  const items=[
-    {t:"FREE DELIVERY",s:"On order over $49.00"},
-    {t:"ORDER PROTECTION",s:"Secured Information"},
-    {t:"PROMOTION GIFT",s:"Special offers"},
-    {t:"MONEY BACK",s:"Return over 30 days"},
-    {t:"BIG SAVING",s:"Weekly Sales"}
+// --- SERVICES ---
+function Services() {
+  const items = [
+    { t: "FREE DELIVERY", s: "On order over $49.00" },
+    { t: "ORDER PROTECTION", s: "Secured Information" },
+    { t: "PROMOTION GIFT", s: "Special offers" },
+    { t: "MONEY BACK", s: "Return over 30 days" },
+    { t: "BIG SAVING", s: "Weekly Sales" }
   ];
-  return <div className="services">{items.map((it,i)=>(
+  return <div className="services">{items.map((it, i) => (
     <div className="service" key={i}>
       <div>📦</div>
       <div><b>{it.t}</b><small>{it.s}</small></div>
     </div>
-  ))}</div>
+  ))}</div>;
 }
 
-function Categories(){
+// --- CATEGORIES ---
+function Categories() {
   const cats = ["Watches","Towels & Could","Smartphones","Furnicoms","Headphone","Fashion","Fashion","Cameras & Photo"];
   return (
     <div className="section">
@@ -89,17 +127,19 @@ function Categories(){
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-function GiftStrip(){
+// --- GIFT STRIP ---
+function GiftStrip() {
   return <div className="strip">
     <div>🎁 <b>Gift Special</b> — Wrap more offers / gift every single day on Weekends - New Coupon code: <b>Happy2017</b></div>
     <button className="btn">Get Coupon</button>
-  </div>
+  </div>;
 }
 
-function countDownLeft(target){
+// --- DAILY DEAL ---
+function countDownLeft(target) {
   const diff = Math.max(0, target - Date.now());
   const d = Math.floor(diff / (1000*60*60*24));
   const h = Math.floor(diff / (1000*60*60)) % 24;
@@ -108,17 +148,17 @@ function countDownLeft(target){
   return {d,h,m,s};
 }
 
-function DailyDeal(){
-  const [left, setLeft] = useState(countDownLeft(Date.now()+86400000*3 + 1000*60*12));
-  useEffect(()=>{
-    const id = setInterval(()=> setLeft(countDownLeft(Date.now()+86400000*3 + 1000*60*12)), 1000);
-    return ()=> clearInterval(id);
-  },[]);
+function DailyDeal() {
+  const [left, setLeft] = useState(countDownLeft(Date.now() + 86400000*3 + 1000*60*12));
+  useEffect(() => {
+    const id = setInterval(() => setLeft(countDownLeft(Date.now() + 86400000*3 + 1000*60*12)), 1000);
+    return () => clearInterval(id);
+  }, []);
   return (
     <div className="card">
       <div className="card-header"><b>DAILY DEALS</b><span className="badge">Free Shipping</span></div>
       <div className="deal-body">
-        <div className="deal-img"><img src="images/jacket.jpg" alt="" style={{width:'60%'}}/></div>
+        <div className="deal-img"><img src="images/winter-jacket.jpg" alt="" style={{width:'60%'}}/></div>
         <div><b>Donce Et Libero Nunc Quis Faucibus Odio</b></div>
         <div className="price"><span className="new">$559.00</span> <span className="old">$645.00</span></div>
         <div className="deal-meta">
@@ -132,10 +172,11 @@ function DailyDeal(){
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function Sports(){
+// --- SPORTS SECTION ---
+function Sports() {
   const products = Array.from({length:8}).map((_,i)=>({
     title:["Alternative Two-Tone R...","Bohemian Printed Dress","congue nibh imperd","Ecosmart Fleece Hoodie","Big Flat Flap Wallet","Ollum Ham Hock","Crochet Lace Dress","Ecosmart Fleece Hoodi"][i],
     price:["$300.00","$420.00","$75.00 - $85.00","$359.00","$148.00","$368.00","$360.00","$135.00"][i],
@@ -161,18 +202,19 @@ function Sports(){
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-function TripleBanners(){
+// --- OTHER COMPONENTS ---
+function TripleBanners() {
   return <div className="banners">
     <div className="banner"></div>
     <div className="banner"></div>
     <div className="banner"></div>
-  </div>
+  </div>;
 }
 
-function ProductSection({title}){
+function ProductSection({title}) {
   const items = Array.from({length:5}).map((_,i)=>({
     title:["Cow pastrami jowl","Cud deserunt","Denouncing pleasure","Deserunt mollitia","Donce et libero nunc quis fauc"][i],
     price:["$390.00","$450.00","$350.00","$450.00","$559.00"][i],
@@ -193,15 +235,15 @@ function ProductSection({title}){
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-function LogosRow(){
+function LogosRow() {
   const labels = ["Premium Quality","Vintage Style","Original Brand","Awards Original brand","Premium Labels","Premium Quality","Premium Labels"];
-  return <div className="logos">{labels.map((t,i)=><div key={i} className="logo-item">{t}</div>)}</div>
+  return <div className="logos">{labels.map((t,i)=><div key={i} className="logo-item">{t}</div>)}</div>;
 }
 
-function Blog(){
+function Blog() {
   const posts=[
     {img:"images/blog1.jpg",t:"Dinvamus adipisc cing nisl",m:"26th May 2018"},
     {img:"images/blog2.jpg",t:"Phase lluson sequat dolor",m:"29th May 2018"},
@@ -222,10 +264,10 @@ function Blog(){
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-function Footer(){
+function Footer() {
   return (
     <div className="footer">
       <div className="top">
@@ -267,30 +309,32 @@ function Footer(){
         <img src="images/paypal.png" alt=""/>
       </div>
     </div>
-  )
+  );
 }
 
-function App(){
-  return (<>
-    <PromoBar/>
-    <SmallTop/>
-    <Header/>
-    <Nav/>
-    <Hero/>
-    <Services/>
-    <Categories/>
-    <GiftStrip/>
-    <div className="grid-2">
-      <DailyDeal/>
-      <Sports/>
-    </div>
-    <TripleBanners/>
-    <ProductSection title="COMPUTER"/>
-    <ProductSection title="TRENDING ITEM"/>
-    <LogosRow/>
-    <Blog/>
-    <Footer/>
-  </>)
+function App() {
+  return (
+    <>
+      <PromoBar/>
+      <SmallTop/>
+      <Header/>
+      <Nav/>
+      <Hero/>
+      <Services/>
+      <Categories/>
+      <GiftStrip/>
+      <div className="grid-2">
+        <DailyDeal/>
+        <Sports/>
+      </div>
+      <TripleBanners/>
+      <ProductSection title="COMPUTER"/>
+      <ProductSection title="TRENDING ITEM"/>
+      <LogosRow/>
+      <Blog/>
+      <Footer/>
+    </>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
