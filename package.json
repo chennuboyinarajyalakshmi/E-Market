@@ -1,22 +1,12 @@
 {
   "name": "e-market-pro",
   "version": "1.0.0",
-  "main": "script.js",
+  "main": "index.html",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
-}
-,
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+    "start": "echo 'This is a static site. No build required.'"
+  },
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
-  },
-  "devDependencies": {
-    "vite": "^7.1.3"
   }
 }
