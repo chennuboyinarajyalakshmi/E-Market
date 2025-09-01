@@ -50,6 +50,7 @@ function Nav() {
 
 // --- HERO SECTION WITH CAROUSEL ---
 function Hero() {
+  // Tip: make sure these files exist in /images. If not, switch to p1.jpg/p2.jpg/p3.jpg which you do have.
   const images = [
     "images/hero-couple.jpg",
     "images/wooden-table.jpg",
@@ -60,7 +61,7 @@ function Hero() {
   useEffect(() => {
     const id = setInterval(() => {
       setCurrent(prev => (prev + 1) % images.length);
-    }, 3000); // rotate every 3 seconds
+    }, 3000);
     return () => clearInterval(id);
   }, []);
 
@@ -79,6 +80,7 @@ function Hero() {
               src={img}
               alt="Hero Slide"
               className={i === current ? "active" : ""}
+              onError={(e)=>{ e.currentTarget.src = "images/p1.jpg"; }}
               style={{
                 position: i === current ? "relative" : "absolute",
                 opacity: i === current ? 1 : 0,
@@ -158,7 +160,7 @@ function DailyDeal() {
     <div className="card">
       <div className="card-header"><b>DAILY DEALS</b><span className="badge">Free Shipping</span></div>
       <div className="deal-body">
-        <div className="deal-img"><img src="images/winter-jacket.jpg" alt="" style={{width:'60%'}}/></div>
+        <div className="deal-img"><img src="images/winter-jacket.jpg" alt="" style={{width:'60%'}} onError={(e)=>{e.currentTarget.src='images/p2.jpg'}}/></div>
         <div><b>Donce Et Libero Nunc Quis Faucibus Odio</b></div>
         <div className="price"><span className="new">$559.00</span> <span className="old">$645.00</span></div>
         <div className="deal-meta">
@@ -177,12 +179,16 @@ function DailyDeal() {
 
 // --- SPORTS SECTION ---
 function Sports() {
-  const products = Array.from({length:8}).map((_,i)=>({
-    title:["Alternative Two-Tone R...","Bohemian Printed Dress","congue nibh imperd","Ecosmart Fleece Hoodie","Big Flat Flap Wallet","Ollum Ham Hock","Crochet Lace Dress","Ecosmart Fleece Hoodi"][i],
-    price:["$300.00","$420.00","$75.00 - $85.00","$359.00","$148.00","$368.00","$360.00","$135.00"][i],
-    img:"images/p"+((i%6)+1)+".jpg",
-    off:[0,13,0,0,0,20,0,25][i]
-  }));
+  const products = Array.from({length:8}).map((_,i)=>([
+    {title:"Alternative Two-Tone R...", price:"$300.00", img:"images/p1.jpg", off:0},
+    {title:"Bohemian Printed Dress", price:"$420.00", img:"images/p2.jpg", off:13},
+    {title:"congue nibh imperd", price:"$75.00 - $85.00", img:"images/p3.jpg", off:0},
+    {title:"Ecosmart Fleece Hoodie", price:"$359.00", img:"images/p4.jpg", off:0},
+    {title:"Big Flat Flap Wallet", price:"$148.00", img:"images/p5.jpg", off:0},
+    {title:"Ollum Ham Hock", price:"$368.00", img:"images/p6.jpg", off:20},
+    {title:"Crochet Lace Dress", price:"$360.00", img:"images/p1.jpg", off:0},
+    {title:"Ecosmart Fleece Hoodi", price:"$135.00", img:"images/p2.jpg", off:25},
+  ][i]));
   return (
     <div className="card">
       <div className="card-header">
@@ -195,7 +201,7 @@ function Sports() {
         {products.map((p,i)=>(
           <div className="prod" key={i} style={{position:'relative'}}>
             {p.off>0 && <div className="badge-off">-{p.off}%</div>}
-            <div className="thumb"><img src={p.img} alt=""/></div>
+            <div className="thumb"><img src={p.img} alt="" /></div>
             <small>{p.title}</small>
             <b>{p.price}</b>
           </div>
@@ -215,11 +221,13 @@ function TripleBanners() {
 }
 
 function ProductSection({title}) {
-  const items = Array.from({length:5}).map((_,i)=>({
-    title:["Cow pastrami jowl","Cud deserunt","Denouncing pleasure","Deserunt mollitia","Donce et libero nunc quis fauc"][i],
-    price:["$390.00","$450.00","$350.00","$450.00","$559.00"][i],
-    img:"images/p"+((i%6)+1)+".jpg"
-  }));
+  const items = Array.from({length:5}).map((_,i)=>([
+    {title:"Cow pastrami jowl", price:"$390.00", img:"images/p1.jpg"},
+    {title:"Cud deserunt", price:"$450.00", img:"images/p2.jpg"},
+    {title:"Denouncing pleasure", price:"$350.00", img:"images/p3.jpg"},
+    {title:"Deserunt mollitia", price:"$450.00", img:"images/p4.jpg"},
+    {title:"Donce et libero nunc quis fauc", price:"$559.00", img:"images/p5.jpg"},
+  ][i]));
   return (
     <div className="card" style={{margin:"10px 16px"}}>
       <div className="card-header"><b>{title}</b>
