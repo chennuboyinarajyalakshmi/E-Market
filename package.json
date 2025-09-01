@@ -1,16 +1,22 @@
 {
-  "name": "e-market-pro",        // Your project name
-  "version": "1.0.0",            // Version of your app
-  "private": true,               // Prevents accidental publishing to npm
-  "scripts": {                   // Scripts to run your app
-    "start": "react-scripts start",   // Runs dev server (localhost:3000)
-    "build": "react-scripts build",   // Creates production build (in /build folder)
-    "test": "react-scripts test",     // Runs tests
-    "eject": "react-scripts eject"    // Exposes config (optional, advanced)
+  "name": "e-market-pro",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+}
+,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
-  "dependencies": {              // Libraries your project uses
-    "react": "^18.2.0",          // React library
-    "react-dom": "^18.2.0",      // React DOM rendering
-    "react-scripts": "5.0.1"     // CRA scripts and configs
+  "devDependencies": {
+    "vite": "^7.1.3"
   }
 }
