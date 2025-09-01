@@ -1,22 +1,10 @@
 {
   "name": "e-market-pro",
   "version": "1.0.0",
-  "main": "script.js",
-  "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
-}
-,
+  "description": "Simple frontend e-market project using React via CDN",
+  "main": "index.html",
+  "scripts": {},
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
-  },
-  "devDependencies": {
-    "vite": "^7.1.3"
-  }
+  "author": "Rajyalakshmi Chennuboyina",
+  "license": "ISC"
 }
